@@ -1,6 +1,7 @@
 import os
 
 import requests
+from bs4 import BeautifulSoup
 
 
 def gethtml(url, key):
@@ -50,16 +51,57 @@ def getpic(url, root):
         print("nb")
 
 
+def getip(ip):
+    url = "https://www.ipshudi.com/"
+    print(url + ip + ".htm")
+    r = requests.get(url + ip + ".htm")
+    r.encoding = r.apparent_encoding
+    return r.text
+
+
+def reip(ip):
+    url = "https://www.ipshudi.com/"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+    }  # 伪造头文件请求
+
+    try:
+        r = requests.get(url + ip + ".htm", headers=headers, timeout=10)
+        r.raise_for_status()  # 检查 HTTP 响应状态码
+        r.encoding = r.apparent_encoding
+        return r.text
+    except requests.exceptions.RequestException as e:
+        print(f"请求失败: {e}")
+        return None
+
+
+def beautifulhtml(url):
+    try:
+        r = requests.get(url)
+        r.raise_for_status()
+        r.encoding = r.apparent_encoding
+        soup = BeautifulSoup(r.text, 'html.parser')
+        return soup.a.attrs.get('id')
+    except requests.exceptions.RequestException as e:
+        print(f"请求失败: {e}")
+        return None
+
+
+
 def main():
-    # url = "http://www.baidu.com/s"
+    # url = "https://www.baidu.com"
     # key = {"wd": "vscode"}
     # url = "http://www.so.com/s"
     # key = {"q": "vscode"}
     # html = gethtml(url, key)
     # writetxt(html, "b19.txt")
-    picurl = "https://h2.gifposter.com/bingImages/BeckettBridge_1920x1080.jpg"
-    path = "./pics//"
-    getpic(picurl, path)
+    # picurl = "https://h2.gifposter.com/bingImages/BeckettBridge_1920x1080.jpg"
+    # path = "./pics//"
+    # getpic(picurl, path)
+    url = "https://python123.io/ws/demo.html"
+    print(beautifulhtml(url))
+    # ip = "111.22.39.255"
+    # print(reip(ip))
     print("sucess")
 
 
