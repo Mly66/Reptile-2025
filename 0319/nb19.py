@@ -77,14 +77,29 @@ def reip(ip):
 
 def beautifulhtml(url):
     try:
-        r = requests.get(url)
+        r = requests.get(url, timeout=10)
         r.raise_for_status()
         r.encoding = r.apparent_encoding
         soup = BeautifulSoup(r.text, 'html.parser')
-        return soup.a.attrs.get('id')
+        return soup.title.string if soup.title else "无标题"
     except requests.exceptions.RequestException as e:
         print(f"请求失败: {e}")
         return None
+
+
+
+def getlinks(url, tag):
+    try:
+        r = requests.get(url, timeout=10)
+        r.raise_for_status()
+        r.encoding = r.apparent_encoding
+        soup = BeautifulSoup(r.text, 'html.parser')
+        links = soup.find_all(tag)
+        return links if links else []
+    except requests.exceptions.RequestException as e:
+        print(f"请求失败: {e}")
+        return []
+
 
 
 
@@ -99,7 +114,15 @@ def main():
     # path = "./pics//"
     # getpic(picurl, path)
     url = "https://python123.io/ws/demo.html"
-    print(beautifulhtml(url))
+
+    title = beautifulhtml(url)
+    print(f"网页标题: {title}")
+
+    tag = 'a'
+    links = getlinks(url, tag)
+    print("页面包含的所有 <a> 标签:")
+    for link in links:
+        print(link.get("href"))
     # ip = "111.22.39.255"
     # print(reip(ip))
     print("sucess")
