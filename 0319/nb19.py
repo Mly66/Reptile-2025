@@ -122,6 +122,7 @@ def main():
     links = getlinks(url, tag)
     print("页面包含的所有 <a> 标签:")
     for link in links:
+        print(link.get("id"),end=':')
         print(link.get("href"))
     # ip = "111.22.39.255"
     # print(reip(ip))
