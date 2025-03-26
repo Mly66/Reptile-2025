@@ -110,9 +110,9 @@ def main():
     # key = {"q": "vscode"}
     # html = gethtml(url, key)
     # writetxt(html, "b19.txt")
-    # picurl = "https://h2.gifposter.com/bingImages/BeckettBridge_1920x1080.jpg"
-    # path = "./pics//"
-    # getpic(picurl, path)
+    picurl = "https://wallpapercave.com/wp/mJRWj5T.jpg"
+    path = "./pics//"
+    getpic(picurl, path)
     url = "https://python123.io/ws/demo.html"
 
     title = beautifulhtml(url)
