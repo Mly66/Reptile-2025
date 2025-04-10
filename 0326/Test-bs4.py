@@ -33,9 +33,9 @@ def testpost():
     return requests.post(url, data=data)
 
 def main():
-    # url = "https://python123.io/ws/demo.html"
-    # title = beautifulhtml(url)
-    # print(type(title))
+    url = "https://python123.io/ws/demo.html"
+    title = beautifulhtml(url)
+    print(type(title))
     # match = re.search(r'[1-9]\d{5}', "BTI32746329874 TUS96743298756")
     # if match:
     #     print(match.group(0))
@@ -44,7 +44,7 @@ def main():
     # if math:
     #     print(math.span())
     # print(f"网页标题: {title}")
-    print(testpost().text)
+    # print(testpost().text)
 
 
 if __name__ == '__main__':
