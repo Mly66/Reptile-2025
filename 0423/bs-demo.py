@@ -35,7 +35,19 @@ def main():
     print(list2)
     list2.reverse()
     print(list2)
-
+    print(list2[::-1])
+    ls3 = list2.copy()
+    for i in range(len(list2)):
+        list2[i] = ls3[len(list2) - i - 1]
+    print(list2)
+    ls4=[]
+    for i in range(len(list2)):
+        ls4.insert(0, list2[i])
+        print(ls4)
+    ls5 = [" "]*5
+    print(ls5)
+    ls= [None for  _ in range(5)]
+    print(ls)
 
 if __name__ == '__main__':
     main()
