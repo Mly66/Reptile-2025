@@ -1,4 +1,6 @@
 import os
+import re
+
 import csv
 import requests
 from bs4 import BeautifulSoup
@@ -15,7 +17,10 @@ def get_soup(html):
 
 def get_info(soup):
     l2 = []
-    for i in soup.descendants:
+    # for i in soup.descendants:
+    #     if i.name is not None and i.attrs != {}:
+    #         l2.append(i.attrs['class'][-1])
+    for i in soup.find_all(True):
         if i.name is not None and i.attrs != {}:
             l2.append(i.attrs['class'][-1])
     return l2
@@ -41,6 +46,16 @@ def write_csv(l, path):
             writer.writerow([num, item])
 
 
+def get_csv(path):
+    data = []
+    with open(path, "r", encoding="utf-8") as f:
+        reader = csv.reader(f)
+        next(reader)
+        for row in reader:
+            data.append(row)
+    return data
+
+
 def main():
     url = 'http://python123.io/ws/demo.html'
     html = get_html(url)
@@ -51,8 +66,20 @@ def main():
     write_txt(list_info, path)
     path = "./csv"
     write_csv(list_info, path)
-    print(soup.title.string)
-
+    csv_path = path + "/info.csv"
+    data = get_csv(csv_path)
+    print(data)
+    print(soup.find_all(['a', 'b']))
+    for i in soup.find_all(True):
+        if i.name is not None: print(i.name, end=' ')
+    print()
+    for i in soup.find_all(re.compile('b')):
+        print(i.name)
+    href_list=[]
+    for i in soup.find_all(id = re.compile('link')):
+        print(i.get('href'))
+        href_list.append(i.get('href'))
+    write_csv(href_list,path)
 
 if __name__ == '__main__':
     main()
