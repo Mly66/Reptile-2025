@@ -65,6 +65,43 @@ def check_ip(ip):
     return False
 
 
+def mean_re():
+    a = re.search('p.*n', 'pyanbncndn')
+    print(a.group())
+    a = re.search('p.*?n', 'pyanbncndn')
+    print(a.group())
+    r = r'[1-9]\d{5}'
+    mixed_list = ['100000', '12345', 'abcde', '123456', 'xyz789', '750000', 'invalid123']
+
+    for item in mixed_list:
+        if re.match(r, item):
+            print(item)
+    print()
+    mixed = '10000012345abcde123456xyz789750000invalid123'
+    a = re.search(r, mixed)
+    print(a.group())
+    print(a.start())
+    print(a.end())
+    print(a.string)
+    print(a.re)
+    print(a.span())
+    print(a.pos)
+    print(a.endpos)
+    print("*" * 38)
+    reg = re.compile(r'[a-z]')
+    a = reg.search(mixed)
+    print(a.group())
+    a = reg.findall(mixed)
+    print(a)
+    a = reg.finditer(mixed)
+    for i in a:
+        print(i.group())
+    a = reg.split(mixed)
+    print(a)
+    a = reg.sub("nb", mixed, 9)
+    print(a)
+
+
 def main():
     url = 'http://python123.io/ws/demo.html'
     html = get_html(url)
@@ -85,6 +122,7 @@ def main():
         print("yes")
     else:
         print("no")
+    mean_re()
 
 
 if __name__ == '__main__':
