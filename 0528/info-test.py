@@ -75,11 +75,22 @@ def main():
     print()
     for i in soup.find_all(re.compile('b')):
         print(i.name)
-    href_list=[]
-    for i in soup.find_all(id = re.compile('link')):
+    href_list = []
+    for i in soup.find_all(id=re.compile('link')):
         print(i.get('href'))
         href_list.append(i.get('href'))
-    write_csv(href_list,path)
+    write_csv(href_list, path)
+
+    e = '{:4}\t{:4}'
+    j = 1
+    with open('./text/info.txt', 'a', encoding='utf-8') as f:
+        for i in soup.find_all(True):
+            if not i.name is None:
+                print(e.format(j, i.name))
+                f.write(e.format(j, i.name))
+                f.write('\n')
+                j += 1
+
 
 if __name__ == '__main__':
     main()
