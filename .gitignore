@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[cod]
+*.pyc
+*.pyo
 *$py.class
 
 # C extensions
@@ -177,7 +178,8 @@ cython_debug/
 
 # ---------- 补充规则（构建产物 / IDE / 密钥） ----------
 __pycache__/
-*.py[cod]
+*.pyc
+*.pyo
 *$py.class
 .Python
 develop-eggs/
